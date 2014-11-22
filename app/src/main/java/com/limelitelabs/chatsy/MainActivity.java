@@ -26,11 +26,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 
 
 public class MainActivity extends Activity {
@@ -78,7 +80,7 @@ public class MainActivity extends Activity {
                 JSONObject postValues = new JSONObject();
                 try {
                     postValues.put("alias", aliasInput.getText().toString());
-                    if(isPersistent) {
+                    if (isPersistent) {
                         postValues.put("passkey", passkeyInput.getText().toString());
                     }
                     JsonObjectRequest getAuth = new JsonObjectRequest(Request.Method.POST, authUrl, postValues, new Response.Listener<JSONObject>() {
@@ -90,10 +92,14 @@ public class MainActivity extends Activity {
                                 Log.d("DEBUG", cookieManager.getCookieStore().getURIs().size() + "");
                                 Log.d("DEBUG", cookieManager.getCookieStore().getCookies().get(0) + "");
                                 String getUrl = "http://chatsy-alpha.herokuapp.com/groups";
-                                JsonArrayRequest getGroups = new JsonArrayRequest(getUrl, new Response.Listener<JSONArray>() {
+                                JsonObjectRequest getGroups = new JsonObjectRequest(Request.Method.GET,getUrl, null, new Response.Listener<JSONObject>() {
                                     @Override
-                                    public void onResponse(JSONArray response) {
-                                        Log.d("DEBUG", response.length()+"");
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            Log.d("DEBUG", response.get("data").toString() + "");
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                         Log.d("DEBUG", cookieManager.getCookieStore().getURIs().size() + "");
                                         Log.d("DEBUG", cookieManager.getCookieStore().getCookies().get(0) + "");
                                     }
