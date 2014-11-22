@@ -1,10 +1,76 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context=".MainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <fragment
+    <LinearLayout
+        android:id="@+id/aliasInput_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/homescreen_fragment"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/aliasInput_label"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="alias" />
+
+        <EditText
+            android:id="@+id/aliasInput_input"
+            android:layout_width="200dp"
+            android:layout_height="50dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/passkeyInput_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/passkeyInput_label"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/aliasInput_label"
+            android:text="passkey" />
+
+        <EditText
+            android:id="@+id/passkeyInput_input"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/aliasInput_input"
+            android:layout_toRightOf="@id/passkeyInput_label" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/userType_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/userType_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false" />
+
+        <TextView
+            android:id="@+id/userType_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I am/want to be a green user" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/joinAction_button"
+        android:text="Enter"/>
+
+</LinearLayout>
