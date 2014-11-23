@@ -1,6 +1,7 @@
 package com.limelitelabs.chatsy;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -74,7 +75,6 @@ public class MainActivity extends Activity {
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                passkeyContainer.setVisibility(View.VISIBLE);
                 final RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
                 String authUrl = "http://chatsy-alpha.herokuapp.com/";
                 JSONObject postValues = new JSONObject();
@@ -88,28 +88,11 @@ public class MainActivity extends Activity {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Log.d("DEBUG", response.get("success").toString());
-                                Log.d("DEBUG", cookieManager.getCookieStore().getURIs().size() + "");
-                                Log.d("DEBUG", cookieManager.getCookieStore().getCookies().get(0) + "");
-                                String getUrl = "http://chatsy-alpha.herokuapp.com/groups";
-                                JsonObjectRequest getGroups = new JsonObjectRequest(Request.Method.GET,getUrl, null, new Response.Listener<JSONObject>() {
-                                    @Override
-                                    public void onResponse(JSONObject response) {
-                                        try {
-                                            Log.d("DEBUG", response.get("data").toString() + "");
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                        Log.d("DEBUG", cookieManager.getCookieStore().getURIs().size() + "");
-                                        Log.d("DEBUG", cookieManager.getCookieStore().getCookies().get(0) + "");
-                                    }
-                                }, new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-
-                                    }
-                                });
-                                requestQueue.add(getGroups);
+                                if(response.getBoolean("success")) {
+                                    Intent next = new Intent(MainActivity.this, BrowseGroupsActivity.class);
+                                    startActivity(next);
+                                    MainActivity.this.finish();
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
