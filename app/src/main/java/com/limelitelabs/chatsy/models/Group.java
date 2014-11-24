@@ -71,8 +71,8 @@ public class Group {
         this.name = jsonObject.getString("name");
         this.description = jsonObject.getString("description");
         this.createdBy = jsonObject.getString("createdBy");
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        //this.createdOn = sdf.parse(jsonObject.getString("createdOn"));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        this.createdOn = sdf.parse(jsonObject.getString("createdOn"));
         this.isVisible = true;
         this.isPrivate = jsonObject.getBoolean("isPrivate");
         this.tags = jsonObject.getJSONArray("tags");
